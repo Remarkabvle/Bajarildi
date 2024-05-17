@@ -15,7 +15,8 @@ const Login = () => {
     setLoading(true)
 
     axios 
-      .post('/auth/login', user) 
+      .post("https://dummyjson.com/auth/login", user)
+
       .then(res => {
         console.log(res.data)
         localStorage.setItem("x-auth-token", res.data.token)

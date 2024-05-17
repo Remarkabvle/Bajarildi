@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api";
 import "./products.scss";
+import EditProductModel from "../editProductModel/EditProductModel";
+
+
 
 const Products = ({ data, isAdmin }) => {
+  const [editProduct, setEditProduct] = useState(null)
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
@@ -16,12 +20,16 @@ const Products = ({ data, isAdmin }) => {
       axios
         .delete(`/products/${id}`)
         .then((res) => {
-          console.log(res); 
-          setReload(!reload); 
+          console.log(res);
+          setReload(!reload);
         })
         .catch((err) => console.error(err));
     }
   };
+
+  const handleEdit = (product) => {
+    setEditProduct(product)
+  }
 
   let productItems = data?.map((el) => (
     <div key={el.id} className="products__card">
@@ -33,7 +41,7 @@ const Products = ({ data, isAdmin }) => {
 
       {isAdmin && (
         <>
-          <button className="products__edit">Edit</button>
+          <button className="products__edit" onClick={() => handleEdit(el)}>Edit</button>
           <button
             className="products__delete"
             onClick={() => handleDelete(el.id)}
@@ -48,6 +56,7 @@ const Products = ({ data, isAdmin }) => {
   return (
     <div className="products">
       <div className="container products__container">{productItems}</div>
+      {editProduct ? <EditProductModel data={editProduct} setData={setEditProduct}/> : <></>}
     </div>
   );
 };
