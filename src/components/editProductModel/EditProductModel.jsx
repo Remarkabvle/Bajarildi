@@ -5,19 +5,17 @@ import axios from "../../api";
 const EditProductModal = ({ data, setData, setReload }) => {
   const handleUpdatedProduct = (e) => {
     e.preventDefault();
-    let updateProduct = {
+    const updateProduct = {
       narxi: data.narxi,
       nomi: data.nomi,
     };
     axios
       .put(`/products/${data.id}`, updateProduct)
-      .then((res) => {
+      .then(() => {
         setData(null);
-        setReload((p) => !p);
-        console.log(res);
-        window.location.reload(); 
+        setReload((prev) => !prev);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -39,9 +37,7 @@ const EditProductModal = ({ data, setData, setReload }) => {
             setData((prev) => ({ ...prev, narxi: e.target.value }))
           }
         />
-        <button type="button" onClick={() => setData(null)}>
-          Close
-        </button>
+        <button type="button" onClick={() => setData(null)}>Close</button>
         <button type="submit">Save</button>
       </form>
     </>

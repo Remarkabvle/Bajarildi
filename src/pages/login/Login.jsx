@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../../api";
+import './login.scss'  
 
 const Login = () => {
   let navigate = useNavigate();
@@ -11,12 +12,11 @@ const Login = () => {
 
   const handleLogin = e => {
     e.preventDefault()
-    let user = {username, password}
+    let user = { username, password }
     setLoading(true)
 
-    axios 
+    axios
       .post("https://dummyjson.com/auth/login", user)
-
       .then(res => {
         console.log(res.data)
         localStorage.setItem("x-auth-token", res.data.token)
@@ -30,7 +30,7 @@ const Login = () => {
   }
 
   return (
-    <div  className="login">
+    <div className="login">
       <h2>Login</h2>
 
       <form onSubmit={handleLogin} action="">
@@ -48,8 +48,10 @@ const Login = () => {
         />
         <button disabled={loading}>{loading ? "Loading..." : "Log in"}</button>
       </form>
-      <button onClick={() => navigate("/")}>Go Home</button>
-      <button onClick={() => navigate(-1)}>Go Back</button>
+      <div className="mnk">
+        <button onClick={() => navigate("/")}>Go Home</button>
+        <button onClick={() => navigate(-1)}>Go Back</button>
+      </div>
     </div>
   );
 };

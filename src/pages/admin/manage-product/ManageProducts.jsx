@@ -3,13 +3,16 @@ import Products from "../../../components/products/Products";
 import { useState } from "react";
 
 const ManageProducts = () => {
-  const [reload, setReload] = useState(true)
-  let { data, loading, error } = useFetch("/products", reload);
+  const [reload, setReload] = useState(false);
+  const { data, loading, error } = useFetch("/products", reload);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
-      <h2>ManageProducts</h2>
-      <Products  setReload={setReload} isAdmin={true} data={data} />
+      <h2>Manage Products</h2>
+      <Products isAdmin={true} setReload={setReload} data={data} />
     </div>
   );
 };
