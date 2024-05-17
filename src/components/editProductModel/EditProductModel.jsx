@@ -15,7 +15,7 @@ const EditProductModal = ({ data, setData, setReload }) => {
         setData(null);
         setReload((p) => !p);
         console.log(res);
-        window.location.reload(); // Saytni yangilash
+        window.location.reload(); 
       })
       .catch((err) => console.log(err));
   };
@@ -42,9 +42,7 @@ const EditProductModal = ({ data, setData, setReload }) => {
         <button type="button" onClick={() => setData(null)}>
           Close
         </button>
-        <button type="submit">
-          Save
-        </button>
+        <button type="submit">Save</button>
       </form>
     </>
   );
